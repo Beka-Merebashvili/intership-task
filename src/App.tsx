@@ -1,54 +1,52 @@
- 
- 
+import axios from "axios";
+import { useState, useEffect } from "react";
+
  
 
 function App() {
-   
+  const [users, setUsers] = useState<Users[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        const data: Users[] = response.data;
+        setUsers(data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   return (
-    <>
-   <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th>mail</th>
-      </tr>
-    </thead>
-    <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-        <td>rugaca</td>
-      </tr>
-      {/* row 2 */}
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-        <td>rugaca</td>
-      </tr>
-      {/* row 3 */}
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-        <td>rugaca</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-    </>
-  )
+    <div className="overflow-x-auto">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.address.city}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
