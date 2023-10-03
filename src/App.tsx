@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Table from "./components/Table";
+import AddUser from "./components/AddUser";
 
  
 
@@ -23,28 +25,14 @@ function App() {
   }, []);
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>City</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.address.city}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    
+    <main className="max-w-4xl mx-auto mt-4">
+      <div className="text-center my-5 flex flex-col gap-4">
+        <h1>Users</h1>
+        <AddUser />
+      </div>
+      <Table users={users} />
+    </main>
   );
 }
 

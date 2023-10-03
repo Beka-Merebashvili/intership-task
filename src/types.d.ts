@@ -27,3 +27,7 @@ interface Users {
     website: string;
     company: Company
 }
+
+interface UsersPropsType {
+    users: Users[];
+}
